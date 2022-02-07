@@ -93,7 +93,8 @@ namespace charuco_detector {
 
 	void ChArUcoDetector::startDetection() {
 		image_transport_ptr_ = std::make_shared<image_transport::ImageTransport>(*node_handle_);
-		image_subscriber_ = image_transport_ptr_->subscribe(image_topic_, 1, &ChArUcoDetector::imageCallback, this);
+        image_transport::TransportHints hints("compressed");
+		image_subscriber_ = image_transport_ptr_->subscribe(image_topic_, 1, &ChArUcoDetector::imageCallback, this, hints);
 
 		camera_info_subscriber_ = node_handle_->subscribe(camera_info_topic_, 1, &ChArUcoDetector::cameraInfoCallback, this);
 
